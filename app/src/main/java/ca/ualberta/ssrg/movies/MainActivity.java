@@ -75,7 +75,9 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		
-		
+		SearchThread thread = new SearchThread("");
+
+		thread.run();
 
 		// Refresh the list when visible
 		// TODO: Search all
@@ -132,6 +134,19 @@ public class MainActivity extends Activity {
 
 	class SearchThread extends Thread {
 		// TODO: Implement search thread
+
+		private String search;
+
+		public SearchThread(String Search) {
+			this.search = search;
+		}
+
+		@Override
+		public void run() {
+			movies.clear();
+			movies.addAll(movieManager.searchMovies(search, null));
+			notifyUpdated();
+		}
 		
 	}
 
